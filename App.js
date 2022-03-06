@@ -1,6 +1,9 @@
 const taxRate = 0.18;
-const shippingPrice =15.0;
-let recep=document.getElementById("cart-subtotal")
+const shippingPrice =0.15;
+let sub1=document.getElementById("subtotal")
+let tax1=document.getElementById("tax")
+let shipping1=document.getElementById("shipping")
+let carttotal1=document.getElementById("carttotal")
 
 
 window.addEventListener("load",()=>{
@@ -33,7 +36,6 @@ productsDiv.addEventListener("click",()=>{
         calculateproducttotal(quantityP);
         calculatecarttotal(quantityP);
        
-
     }
     else if(event.target.classList.contains("remove-product")){
         // console.log("remove button clicked");
@@ -52,12 +54,25 @@ const calculateproducttotal=(quantityP)=>{
     totalprice.innerText=productprice.innerText*quantityP.innerText
     
 }
-const calculatecarttotal=(quantityP)=>{
-    let produckttotalprices=document.querySelectorAll(".product-line-price")
+const calculatecarttotal=()=>{
+    let produckttotalprices=document.querySelectorAll(".product-line-price");
+    //console.log(produckttotalprices);
     let subtotal=0;
+
     produckttotalprices.forEach(p=>{
         subtotal+=parseFloat(p.innerText)
-        console.log(subtotal);
-        recep.innerText+=subtotal
+        
     })
+    console.log(subtotal);
+    let taxtprice=subtotal*localStorage.getItem("taxRate")
+    console.log(taxtprice);
+    let shipping=subtotal*localStorage.getItem("shippingPrice")
+    console.log(shipping);
+    let carttotal=shipping+taxtprice+subtotal
+    console.log(carttotal);
+
+    sub1.innerText=subtotal.toFixed(2)
+    tax1.innerText=taxtprice.toFixed(2)
+    shipping1.innerText=taxtprice.toFixed(2)
+    carttotal1.innerText=carttotal.toFixed(2)
 }
